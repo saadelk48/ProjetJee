@@ -21,6 +21,7 @@
         <a href="#" class="text-neutral-800">UserName</a>
     </div>
 </footer>
+
 <!-- Scripts -->
 <script src="${pageContext.request.contextPath}/static/js/FilterBooks&Actions.js"></script>
 </body>
