@@ -59,4 +59,53 @@ public class BookDAO {
         }
         return books;
     }
+
+    public Book getBookById(int id) throws SQLException {
+        String sql = "SELECT * FROM livre WHERE id = ?";
+        Book book = null;
+
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    book = new Book();
+                    book.setId(rs.getInt("id"));
+                    book.setTitle(rs.getString("titre"));
+                    book.setAuthor(rs.getString("auteur"));
+                    book.setCategory(rs.getString("categorie"));
+                    book.setQuantity(rs.getInt("nbr_disponible"));
+                }
+            }
+        }
+        return book;
+    }
+
+    public void updateBook(Book book) throws SQLException {
+        String sql = "UPDATE livre SET titre = ?, auteur = ?, categorie = ?, nbr_disponible = ? WHERE id = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, book.getTitle());
+            stmt.setString(2, book.getAuthor());
+            stmt.setString(3, book.getCategory());
+            stmt.setInt(4, book.getQuantity());
+            stmt.setInt(5, book.getId());
+
+            stmt.executeUpdate();
+        }
+    }
+
+    public void deleteBook(int id) throws SQLException {
+        String sql = "DELETE FROM livre WHERE id = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+    }
 }

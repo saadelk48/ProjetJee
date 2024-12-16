@@ -27,8 +27,12 @@
                     <td>${book.category}</td>
                     <td>${book.quantity}</td>
                     <td>
-                        <button class="btn btn-primary btn-sm" >Edit</button>
-                        <button class="btn btn-danger btn-sm" >Delete</button>
+                        <button class="btn btn-primary btn-sm"
+                                onclick="window.location.href='${pageContext.request.contextPath}/book?action=edit&id=${book.id}'">
+                            Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="if(confirm('Are you sure you want to delete this book?'))
+                                window.location.href='${pageContext.request.contextPath}/book?action=delete&id=${book.id}'" >
+                            Delete</button>
                     </td>
                 </tr>
             </c:forEach>

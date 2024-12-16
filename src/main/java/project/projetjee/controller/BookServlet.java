@@ -40,11 +40,33 @@ public class BookServlet extends HttpServlet {
                 e.printStackTrace();
                 throw new ServletException("Error retrieving books", e);
             }
+        }else if("edit".equals(action)) {
+            try {
+                int id = Integer.parseInt(request.getParameter("id"));
+                Book book = bookDAO.getBookById(id); // Fetch book details by ID
+
+                request.setAttribute("book", book); // Set book as request attribute
+                dispatcher = request.getRequestDispatcher("/WEB-INF/views/admin/editBook.jsp");
+                dispatcher.forward(request, response);
+            }catch (SQLException e) {
+                e.printStackTrace();
+                throw new ServletException("Error retrieving book", e);
+            }
+        } else if ("delete".equals(action)) {
+                int id = Integer.parseInt(request.getParameter("id"));
+            try {
+                bookDAO.deleteBook(id);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            response.sendRedirect("book?action=list");
+
         }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String idParam = request.getParameter("id");
         String title = request.getParameter("title");
         String author = request.getParameter("author");
         String category = request.getParameter("category");
@@ -57,10 +79,21 @@ public class BookServlet extends HttpServlet {
         book.setQuantity(quantity);
 
         try {
-            bookDAO.addBook(book);
+            if (idParam != null && !idParam.isEmpty()) {
+                // Update existing book
+                int id = Integer.parseInt(idParam);
+                book.setId(id);
+                bookDAO.updateBook(book);
+            } else {
+                // Add new book
+                bookDAO.addBook(book);
+            }
+
+
             response.sendRedirect("book?action=list");
+
         } catch (SQLException ex) {
-            throw new ServletException(ex);
+            throw new ServletException("Error processing book", ex);
         }
     }
 
