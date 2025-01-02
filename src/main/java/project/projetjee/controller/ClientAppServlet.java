@@ -1,5 +1,6 @@
 package project.projetjee.controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,9 +16,17 @@ public class ClientAppServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Redirige vers la page JSP
-        request.getRequestDispatcher("/WEB-INF/views/clientAPP/index.jsp").forward(request, response);
+        String page = request.getParameter("page");
+        if (page == null) {
+            page = "index";
+        }
+
+        String pagePath = "/WEB-INF/views/clientAPP/" + page + ".jsp";
+
+        if (page.equals("login") || page.equals("dashboard") || page.equals("index")) {
+            request.getRequestDispatcher(pagePath).forward(request, response);
+        } else {
+            request.getRequestDispatcher("/WEB-INF/views/clientAPP/error.jsp").forward(request, response);
+        }
     }
 }
-
-

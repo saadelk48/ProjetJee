@@ -47,7 +47,7 @@
                                 <li class="menu-item"><a href="#special-offer" class="nav-link">Offer</a></li>
                                 <li class="menu-item"><a href="#latest-blog" class="nav-link">Articles</a></li>
                                 <li class="menu-item">
-                                    <a href="#" class="user-account for-buy"><i
+                                    <a href="clientApp?page=login" class="user-account for-buy"><i
                                             class="icon icon-user"></i><span>Account</span></a>
                                 </li>
                                 <li class="menu-item">
