@@ -88,3 +88,39 @@ button:hover{
 #chk:checked ~ .signup label{
     transform: scale(.6);
 }
+
+/* style.css */
+.message-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 400px;
+    display: inline-block;
+}
+
+.success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.home-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.home-link:hover {
+    background-color: #0056b3;
+}

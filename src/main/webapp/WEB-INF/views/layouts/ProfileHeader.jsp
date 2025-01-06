@@ -1,3 +1,4 @@
+<%@ page session="true" %>
 <div class="right">
   <div class="top">
     <button id="menu-btn">
@@ -11,9 +12,9 @@
 
     <div class="profile">
       <div class="info">
-        <p>Bonjour, <b>User Name</b></p>
+        <p>Bonjour, <b><%= session.getAttribute("userName") != null ? session.getAttribute("userName") : "Utilisateur" %></b></p>
         <small class="text-muted text-sm">
-          Role
+          <%= session.getAttribute("role") != null ? session.getAttribute("role") : "admin" %>
         </small>
       </div>
       <div class="profile-photo">

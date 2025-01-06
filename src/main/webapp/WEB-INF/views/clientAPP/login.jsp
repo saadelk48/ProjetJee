@@ -11,7 +11,8 @@
   <input type="checkbox" id="chk" aria-hidden="true">
 
   <div class="signup">
-    <form method="post" action="">
+    <form method="post" action="${pageContext.request.contextPath}/register">
+      <input type="hidden" name="action" value="register"> <!-- Spécifie l'action -->
       <label for="chk" aria-hidden="true">Sign up</label>
       <input type="text" name="nom" placeholder="User name" required>
       <input type="email" name="email" placeholder="Email" required>
@@ -21,10 +22,11 @@
   </div>
 
   <div class="login">
-    <form method="post" action="">
+    <form method="post" action="${pageContext.request.contextPath}/register">
+      <input type="hidden" name="action" value="login"> <!-- Spécifie l'action -->
       <label for="chk" aria-hidden="true">Login</label>
       <input type="email" name="email" placeholder="Email" required>
-      <input type="password" name="pswd" placeholder="Password" required>
+      <input type="password" name="password" placeholder="Password" required>
       <button type="submit">Login</button>
     </form>
   </div>
