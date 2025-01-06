@@ -1,16 +1,20 @@
 package project.projetjee.controller;
 
-import java.io.*;
-import java.sql.SQLException;
-
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
 import project.projetjee.dao.BookDAO;
 import project.projetjee.model.Book;
+
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
+
 @WebServlet(name = "BookServlet", value = "/book")
+@MultipartConfig // Enables file upload support
 public class BookServlet extends HttpServlet {
     private BookDAO bookDAO;
 
@@ -18,49 +22,42 @@ public class BookServlet extends HttpServlet {
         bookDAO = new BookDAO();
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
-
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         RequestDispatcher dispatcher;
 
         if ("add".equals(action)) {
-            // Forward to addBook.jsp when "Add" action is triggered
             dispatcher = request.getRequestDispatcher("/WEB-INF/views/admin/addBook.jsp");
             dispatcher.forward(request, response);
         } else if ("list".equals(action)) {
-            // Default action: Display Book List
             try {
                 List<Book> books = bookDAO.getAllBooks();
-                System.out.println("Books retrieved in Servlet: " + books.size());
                 request.setAttribute("books", books);
-                System.out.println("Attribute 'books' set in request.");
                 dispatcher = request.getRequestDispatcher("/WEB-INF/views/admin/BookList.jsp");
                 dispatcher.forward(request, response);
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 throw new ServletException("Error retrieving books", e);
             }
-        }else if("edit".equals(action)) {
+        } else if ("edit".equals(action)) {
             try {
                 int id = Integer.parseInt(request.getParameter("id"));
-                Book book = bookDAO.getBookById(id); // Fetch book details by ID
-
-                request.setAttribute("book", book); // Set book as request attribute
+                Book book = bookDAO.getBookById(id);
+                request.setAttribute("book", book);
                 dispatcher = request.getRequestDispatcher("/WEB-INF/views/admin/editBook.jsp");
                 dispatcher.forward(request, response);
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 throw new ServletException("Error retrieving book", e);
             }
         } else if ("delete".equals(action)) {
-                int id = Integer.parseInt(request.getParameter("id"));
+            int id = Integer.parseInt(request.getParameter("id"));
             try {
                 bookDAO.deleteBook(id);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
             response.sendRedirect("book?action=list");
-
         }
     }
 
@@ -72,26 +69,36 @@ public class BookServlet extends HttpServlet {
         String category = request.getParameter("category");
         int quantity = Integer.parseInt(request.getParameter("quantity"));
 
+        // File upload handling
+        Part photoPart = request.getPart("photo");
+        String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdir();
+        }
+
+        String photoName = photoPart.getSubmittedFileName();
+        String photoPath = "uploads" + File.separator + photoName;
+        photoPart.write(uploadPath + File.separator + photoName);
+
+        // Create Book object
         Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
         book.setCategory(category);
         book.setQuantity(quantity);
+        book.setPhoto(photoPath); // Set the photo path
 
         try {
             if (idParam != null && !idParam.isEmpty()) {
-                // Update existing book
                 int id = Integer.parseInt(idParam);
                 book.setId(id);
                 bookDAO.updateBook(book);
             } else {
-                // Add new book
                 bookDAO.addBook(book);
             }
 
-
             response.sendRedirect("book?action=list");
-
         } catch (SQLException ex) {
             throw new ServletException("Error processing book", ex);
         }

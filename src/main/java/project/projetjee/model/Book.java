@@ -6,6 +6,7 @@ public class Book {
     private String author;
     private String category;
     private int quantity;
+    private String photo;
 
     // Getters and Setters
     public int getId() { return id; }
@@ -22,4 +23,7 @@ public class Book {
 
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
+
+    public String getPhoto() { return photo; }
+    public void setPhoto(String photo) { this.photo = photo; }
 }

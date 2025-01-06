@@ -24,9 +24,8 @@ public class BookDAO {
 
     // Method to add a book
     public void addBook(Book book) throws SQLException {
-        String sql = "INSERT INTO livre (titre, auteur, categorie, nbr_disponible) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO livre (titre, auteur, categorie, nbr_disponible, photo) VALUES (?, ?, ?, ?, ?)";
 
-        // Use the reusable getConnection() method
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -34,6 +33,7 @@ public class BookDAO {
             stmt.setString(2, book.getAuthor());
             stmt.setString(3, book.getCategory());
             stmt.setInt(4, book.getQuantity());
+            stmt.setString(5, book.getPhoto()); // Add photo path
 
             stmt.executeUpdate();
         }
@@ -54,6 +54,7 @@ public class BookDAO {
                 book.setAuthor(rs.getString("auteur"));
                 book.setCategory(rs.getString("categorie"));
                 book.setQuantity(rs.getInt("nbr_disponible"));
+                book.setPhoto(rs.getString("photo")); // Retrieve photo path
                 books.add(book);
             }
         }
@@ -76,6 +77,7 @@ public class BookDAO {
                     book.setAuthor(rs.getString("auteur"));
                     book.setCategory(rs.getString("categorie"));
                     book.setQuantity(rs.getInt("nbr_disponible"));
+                    book.setPhoto(rs.getString("photo")); // Retrieve photo path
                 }
             }
         }
@@ -83,7 +85,7 @@ public class BookDAO {
     }
 
     public void updateBook(Book book) throws SQLException {
-        String sql = "UPDATE livre SET titre = ?, auteur = ?, categorie = ?, nbr_disponible = ? WHERE id = ?";
+        String sql = "UPDATE livre SET titre = ?, auteur = ?, categorie = ?, nbr_disponible = ?, photo = ? WHERE id = ?";
 
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -92,7 +94,8 @@ public class BookDAO {
             stmt.setString(2, book.getAuthor());
             stmt.setString(3, book.getCategory());
             stmt.setInt(4, book.getQuantity());
-            stmt.setInt(5, book.getId());
+            stmt.setString(5, book.getPhoto()); // Update photo path
+            stmt.setInt(6, book.getId());
 
             stmt.executeUpdate();
         }
