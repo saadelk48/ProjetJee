@@ -1,0 +1,129 @@
+/* button */
+
+main .insights > .add_btn {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+main .insights > .add_btn > span {
+    width: 85%;
+    background-color: var(--color-white);
+    border-radius: 0.50rem;
+    overflow-x: auto;
+}
+
+/* main .insights > .add_btn > a > button {
+    width: fit;
+} */
+
+main .insights > .add_btn > span ul {
+    display: flex;
+    white-space: nowrap;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+}
+
+
+
+main .insights > .add_btn > span ul li {
+    padding: 10px 15px;
+    color: var(--color-black);
+    border-right: 1px solid var(--color-white); /* Add border between items */
+    font-size: 16px;
+    cursor: pointer;
+    transition: ease-in-out 100ms all;
+}
+
+main .insights > .add_btn > span ul li:hover{
+    transform: scale(1.2);
+}
+
+.activeLi{
+    color: var(--color-primary-var) !important;
+}
+
+/* Table */
+main .insights > .manage_books_cards {
+    background:var(--color-white);
+    display: flex;
+    justify-content: space-around; /* Adjust spacing between cards */
+    flex-wrap: wrap; /* Allow wrapping of cards */
+    margin: 20px auto;
+    justify-content: flex-start;
+}
+
+/* Basic styling for the card */
+.card {
+    width: 200px;
+    border: 1px solid var(--color-black);
+    background: transparent;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 20px;
+    text-align: center;
+    transition: ease-in-out 100ms all;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.card:hover {
+    border: 3px solid var(--color-black);
+}
+
+/* Style for the card header containing title and rating */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Style for the title */
+.title {
+    margin: 0;
+    font-size: 20px;
+}
+
+
+/* Style for the rating */
+.rating {
+    font-size: 16px;
+    color: #888;
+}
+
+/* Style for the buttons */
+.card-actions {
+    margin-top: 10px;
+}
+
+.btn-edit, .btn-delete {
+    padding: 8px 15px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-edit{
+    background-color: var(--color-warning);
+    color: black;
+}
+
+.btn-edit:hover {
+    background-color: rgb(251, 251, 180);
+}
+
+.btn-delete{
+    background-color: red;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: rgb(250, 119, 119);
+}
+
