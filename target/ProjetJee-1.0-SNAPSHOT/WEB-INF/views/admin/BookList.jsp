@@ -14,6 +14,7 @@
             <th>Author</th>
             <th>Category</th>
             <th>Quantity</th>
+            <th>Photo</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -26,6 +27,16 @@
                     <td>${book.author}</td>
                     <td>${book.category}</td>
                     <td>${book.quantity}</td>
+                    <td>
+                        <!-- Display book photo -->
+                        <c:if test="${not empty book.photo}">
+                            <img src="<c:out value='${pageContext.request.contextPath}/static/${book.photo}' />" alt="Book Photo"
+                                 style="width: 100px; height: auto;">
+                        </c:if>
+                        <c:if test="${empty book.photo}">
+                            <span>No photo</span>
+                        </c:if>
+                    </td>
                     <td>
                         <button class="btn btn-primary btn-sm"
                                 onclick="window.location.href='${pageContext.request.contextPath}/book?action=edit&id=${book.id}'">

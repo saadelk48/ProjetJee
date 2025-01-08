@@ -79,25 +79,27 @@ public class RegisterServlet extends HttpServlet {
             if (user != null) {
                 boolean isAdmin = userService.isAdmin(user.getId());
 
-                // Crée une session pour stocker les informations de l'utilisateur
+                // Create a session and set the role
                 HttpSession session = request.getSession();
                 session.setAttribute("userName", user.getNom());
-                session.setAttribute("role", isAdmin ? "admin" : "client");
+                session.setAttribute("role", isAdmin ? "admin" : "client"); // Store the role
+                System.out.println("User role set to: " + (isAdmin ? "admin" : "client"));
 
                 if (isAdmin) {
-                    // Redirige vers le tableau de bord admin
+                    // Forward to the admin dashboard
                     request.getRequestDispatcher("/WEB-INF/views/admin/dashboard.jsp").forward(request, response);
                 } else {
-                    // Redirige vers le tableau de bord client
-                    request.getRequestDispatcher("/WEB-INF/views/clientAPP/index.jsp").forward(request, response);
+                    // Redirect to the clientApp servlet for the client
+                    response.sendRedirect(request.getContextPath() + "/clientApp?page=index");
                 }
             } else {
-                // Gestion de l'erreur si l'authentification échoue
-                request.setAttribute("errorMessage", "Email ou mot de passe incorrect.");
+                // Handle login failure
+                request.setAttribute("errorMessage", "Email or password incorrect.");
                 request.getRequestDispatcher("/WEB-INF/views/clientAPP/login.jsp").forward(request, response);
             }
         } catch (SQLException e) {
-            throw new ServletException("Erreur lors de la connexion", e);
+            throw new ServletException("Error during login", e);
         }
     }
+
 }

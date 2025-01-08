@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2 class="text-center mb-4 text-light">Add New Book</h2>
-            <form action="<%= request.getContextPath() %>/book" method="post">
+            <form action="<%= request.getContextPath() %>/book" method="post" enctype="multipart/form-data">
                 <!-- Book Title -->
                 <div class="mb-3">
                     <label for="title" class="form-label text-light">Book Title</label>
@@ -31,6 +31,10 @@
                     <input type="number" name="quantity" id="quantity" class="form-control" placeholder="Enter quantity" min="1" required>
                 </div>
 
+                <div class="mb-3">
+                    <label for="photo" class="form-label text-light">Book Photo</label>
+                    <input type="file" name="photo" id="photo" class="form-control" accept="image/*" required>
+                </div>
                 <!-- Submit Button -->
                 <div class="text-center">
                     <button type="submit" class="btn btn-success">Add Book</button>
