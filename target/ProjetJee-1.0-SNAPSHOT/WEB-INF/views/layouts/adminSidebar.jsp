@@ -9,11 +9,19 @@
         </div>
     </div>
     <div class="sidebar">
+        <a href="Admin?action=list">
+            <span class="material-symbols-outlined">admin_panel_settings</span>
+            <h3>Admin List</h3>
+        </a>
+        <a href="Client?action=list">
+            <span class="material-icons-sharp">group</span>
+            <h3>client List</h3>
+        </a>
         <a href="dashboard.jsp">
             <span class="material-icons-sharp">grid_view</span>
             <h3>Dashboard</h3>
         </a>
-        <a href="manageBooks.jsp">
+        <a href="book?action=list">
             <span class="material-icons-sharp">book</span>
             <h3>Books</h3>
         </a>

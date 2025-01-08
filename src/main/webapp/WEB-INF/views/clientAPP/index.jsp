@@ -1,4 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+     session = request.getSession(false);
+    if (session == null || !"client".equals(session.getAttribute("role"))) {
+        response.sendRedirect(request.getContextPath() + "/clientApp?page=login");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -281,7 +289,10 @@
     </div>
 </section>
 
-<section id="popular-books" class="bookshelf py-5 my-5">
+
+
+
+<section id="featured-books" class="py-5 my-5">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -290,622 +301,93 @@
                     <div class="title">
                         <span>Some quality items</span>
                     </div>
-                    <h2 class="section-title">Popular Books</h2>
+                    <h2 class="section-title">Featured Books</h2>
                 </div>
 
-                <ul class="tabs">
-                    <li data-tab-target="#all-genre" class="active tab">All Genre</li>
-                    <li data-tab-target="#business" class="tab">Business</li>
-                    <li data-tab-target="#technology" class="tab">Technology</li>
-                    <li data-tab-target="#romantic" class="tab">Romantic</li>
-                    <li data-tab-target="#adventure" class="tab">Adventure</li>
-                    <li data-tab-target="#fictional" class="tab">Fictional</li>
-                </ul>
-
-                <div class="tab-content">
-                    <div id="all-genre" data-tab-content class="active">
-                        <div class="row">
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item1.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="5" data-name="Portrait photography" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Portrait photography</h3>
-                                        <span>Adam Silber</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item2.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="6" data-name="Once upon a time" data-price="35.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Once upon a time</h3>
-                                        <span>Klien Marry</span>
-                                        <div class="item-price">$ 35.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item3.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="7" data-name="Tips of simple lifestyle" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Tips of simple lifestyle</h3>
-                                        <span>Bratt Smith</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item4.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="8" data-name="Just felt from outside" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Just felt from outside</h3>
-                                        <span>Nicole Wilson</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item5.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="9" data-name="Peaceful Enlightment" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Peaceful Enlightment</h3>
-                                        <span>Marmik Lama</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item6.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="10" data-name="Great travel at desert" data-price="50.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Great travel at desert</h3>
-                                        <span>Sanchit Howdy</span>
-                                        <div class="item-price">$ 50.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item7.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="11" data-name="Life among the pirates" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Life among the pirates</h3>
-                                        <span>Armor Ramsey</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item8.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="1" data-name="Simple way of piece life" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Simple way of piece life</h3>
-                                        <span>Armor Ramsey</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div id="business" data-tab-content>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item2.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="9" data-name="Peaceful Enlightment" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Peaceful Enlightment</h3>
-                                        <span>Marmik Lama</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item4.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="12" data-name="Great travel at desert" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Great travel at desert</h3>
-                                        <span>Sanchit Howdy</span>
-                                        <div class="item-price">$ 20.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item6.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="11" data-name="Life among the pirates" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Life among the pirates</h3>
-                                        <span>Armor Ramsey</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item8.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="1" data-name="Simple way of piece life" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Simple way of piece life</h3>
-                                        <span>Armor Ramsey</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div id="technology" data-tab-content>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item1.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="9" data-name="Peaceful Enlightment" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Peaceful Enlightment</h3>
-                                        <span>Marmik Lama</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item3.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="12" data-name="Great travel at desert" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Great travel at desert</h3>
-                                        <span>Sanchit Howdy</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item5.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="11" data-name="Life among the pirates" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Life among the pirates</h3>
-                                        <span>Armor Ramsey</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item7.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="1" data-name="Simple way of piece life" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Simple way of piece life</h3>
-                                        <span>Armor Ramsey</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="romantic" data-tab-content>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item1.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="9" data-name="Peaceful Enlightment" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Peaceful Enlightment</h3>
-                                        <span>Marmik Lama</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item3.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="12" data-name="Great travel at desert" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Great travel at desert</h3>
-                                        <span>Sanchit Howdy</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item5.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="11" data-name="Life among the pirates" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Life among the pirates</h3>
-                                        <span>Armor Ramsey</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item7.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="1" data-name="Simple way of piece life" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Simple way of piece life</h3>
-                                        <span>Armor Ramsey</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="adventure" data-tab-content>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item5.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="11" data-name="Life among the pirates" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Life among the pirates</h3>
-                                        <span>Armor Ramsey</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item7.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="1" data-name="Simple way of piece life" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Simple way of piece life</h3>
-                                        <span>Armor Ramsey</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="fictional" data-tab-content>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item5.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="11" data-name="Life among the pirates" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Life among the pirates</h3>
-                                        <span>Armor Ramsey</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="${pageContext.request.contextPath}/static/assets/images/tab-item7.jpg" alt="Books" class="product-item">
-                                        <button type="button" class="add-to-cart" data-id="1" data-name="Simple way of piece life" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Simple way of piece life</h3>
-                                        <span>Armor Ramsey</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div><!--inner-tabs-->
-
-        </div>
-    </div>
-</section>
-
-<section id="quotation" class="align-center pb-5 mb-5">
-    <div class="inner-content">
-        <h2 class="section-title divider">Quote of the day</h2>
-        <blockquote data-aos="fade-up">
-            <q>“The more that you read, the more things you will know. The more that you learn, the more places
-                you’ll go.”</q>
-            <div class="author-name">Dr. Seuss</div>
-        </blockquote>
-    </div>
-</section>
-
-<section id="special-offer" class="bookshelf pb-5 mb-5">
-
-    <div class="section-header align-center">
-        <div class="title">
-            <span>Grab your opportunity</span>
-        </div>
-        <h2 class="section-title">Books with offer</h2>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="inner-content">
                 <div class="product-list" data-aos="fade-up">
-                    <div class="grid product-grid">
-                        <div class="product-item">
-                            <figure class="product-style">
-                                <img src="${pageContext.request.contextPath}/static/assets/images/product-item5.jpg" alt="Books" class="product-item">
-                                <button type="button" class="add-to-cart" data-id="1" data-name="Simple way of piece life" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                            </figure>
-                            <figcaption>
-                                <h3>Simple way of piece life</h3>
-                                <span>Armor Ramsey</span>
-                                <div class="item-price">
-                                    <span class="prev-price">$ 50.00</span>$ 40.00
+                    <div class="row">
+
+                        <c:forEach var="book" items="${books}">
+                            <div class="col-md-3">
+                                <div class="product-item">
+                                    <figure class="product-style">
+                                        <!-- Dynamic image path -->
+                                        <img src="<c:out value='${pageContext.request.contextPath}/static/${book.photo}' />"
+                                             alt="<c:out value='${book.title}' />" class="product-item">
+                                        <!-- Emprunt Button -->
+                                        <button type="button" class="add-to-cart btn btn-primary"
+                                                data-id="${book.id}"
+                                                data-name="${book.title}"
+                                                data-author="${book.author}"
+                                                onclick="openEmpruntForm('${book.id}', '${book.title}', '${book.author}')">
+                                            Emprunt
+                                        </button>
+                                    </figure>
+                                    <figcaption>
+                                        <h3><c:out value="${book.title}" /></h3>
+                                        <span><c:out value="${book.author}" /></span>
+                                    </figcaption>
                                 </div>
-                        </div>
-                        </figcaption>
-
-                        <div class="product-item">
-                            <figure class="product-style">
-                                <img src="${pageContext.request.contextPath}/static/assets/images/product-item6.jpg" alt="Books" class="product-item">
-                                <button type="button" class="add-to-cart" data-id="12" data-name="Great travel at desert" data-price="30.00" onclick="addToCart(this)">Add to Cart</button>
-                            </figure>
-                            <figcaption>
-                                <h3>Great travel at desert</h3>
-                                <span>Sanchit Howdy</span>
-                                <div class="item-price">
-                                    <span class="prev-price">$ 38.00</span>$ 30.00
-                                </div>
-                        </div>
-                        </figcaption>
-
-                        <div class="product-item">
-                            <figure class="product-style">
-                                <img src="${pageContext.request.contextPath}/static/assets/images/product-item7.jpg" alt="Books" class="product-item">
-                                <button type="button" class="add-to-cart" data-id="15" data-name="The lady beauty Scarlett" data-price="35.00" onclick="addToCart(this)">Add to Cart</button>
-                            </figure>
-                            <figcaption>
-                                <h3>The lady beauty Scarlett</h3>
-                                <span>Arthur Doyle</span>
-                                <div class="item-price">
-                                    <span class="prev-price">$ 45.00</span>$ 35.00
-                                </div>
-                        </div>
-                        </figcaption>
-
-                        <div class="product-item">
-                            <figure class="product-style">
-                                <img src="${pageContext.request.contextPath}/static/assets/images/product-item8.jpg" alt="Books" class="product-item">
-                                <button type="button" class="add-to-cart" data-id="16" data-name="Once upon a time" data-price="15.00" onclick="addToCart(this)">Add to Cart</button>
-                            </figure>
-                            <figcaption>
-                                <h3>Once upon a time</h3>
-                                <span>Klien Marry</span>
-                                <div class="item-price">
-                                    <span class="prev-price">$ 35.00</span>$ 15.00
-                                </div>
-                        </div>
-                        </figcaption>
-
-                        <div class="product-item">
-                            <figure class="product-style">
-                                <img src="${pageContext.request.contextPath}/static/assets/images/product-item2.jpg" alt="Books" class="product-item">
-                                <button type="button" class="add-to-cart" data-id="1" data-name="Simple way of piece life" data-price="40.00" onclick="addToCart(this)">Add to Cart</button>
-                            </figure>
-                            <figcaption>
-                                <h3>Simple way of piece life</h3>
-                                <span>Armor Ramsey</span>
-                                <div class="item-price">$ 40.00</div>
-                            </figcaption>
-                        </div>
-                    </div><!--grid-->
-                </div>
-            </div><!--inner-content-->
-        </div>
-    </div>
-</section>
-
-<section id="latest-blog" class="py-5 my-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-
-                <div class="section-header align-center">
-                    <div class="title">
-                        <span>Read our articles</span>
-                    </div>
-                    <h2 class="section-title">Latest Articles</h2>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-md-4">
-
-                        <article class="column" data-aos="fade-up">
-
-                            <figure>
-                                <a href="#" class="image-hvr-effect">
-                                    <img src="${pageContext.request.contextPath}/static/assets/images/post-img1.jpg" alt="post" class="post-image">
-                                </a>
-                            </figure>
-
-                            <div class="post-item">
-                                <div class="meta-date">Mar 30, 2021</div>
-                                <h3><a href="#">Reading books always makes the moments happy</a></h3>
-
-                                <div class="links-element">
-                                    <div class="categories">inspiration</div>
-                                    <div class="social-links">
-                                        <ul>
-                                            <li>
-                                                <a href="#"><i class="icon icon-facebook"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="icon icon-twitter"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="icon icon-behance-square"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div><!--links-element-->
-
                             </div>
-                        </article>
+                        </c:forEach>
 
-                    </div>
-                    <div class="col-md-4">
-
-                        <article class="column" data-aos="fade-up" data-aos-delay="200">
-                            <figure>
-                                <a href="#" class="image-hvr-effect">
-                                    <img src="${pageContext.request.contextPath}/static/assets/images/post-img2.jpg" alt="post" class="post-image">
-                                </a>
-                            </figure>
-                            <div class="post-item">
-                                <div class="meta-date">Mar 29, 2021</div>
-                                <h3><a href="#">Reading books always makes the moments happy</a></h3>
-
-                                <div class="links-element">
-                                    <div class="categories">inspiration</div>
-                                    <div class="social-links">
-                                        <ul>
-                                            <li>
-                                                <a href="#"><i class="icon icon-facebook"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="icon icon-twitter"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="icon icon-behance-square"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div><!--links-element-->
-
-                            </div>
-                        </article>
-
-                    </div>
-                    <div class="col-md-4">
-
-                        <article class="column" data-aos="fade-up" data-aos-delay="400">
-                            <figure>
-                                <a href="#" class="image-hvr-effect">
-                                    <img src="${pageContext.request.contextPath}/static/assets/images/post-img3.jpg" alt="post" class="post-image">
-                                </a>
-                            </figure>
-                            <div class="post-item">
-                                <div class="meta-date">Feb 27, 2021</div>
-                                <h3><a href="#">Reading books always makes the moments happy</a></h3>
-
-                                <div class="links-element">
-                                    <div class="categories">inspiration</div>
-                                    <div class="social-links">
-                                        <ul>
-                                            <li>
-                                                <a href="#"><i class="icon icon-facebook"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="icon icon-twitter"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="icon icon-behance-square"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div><!--links-element-->
-
-                            </div>
-                        </article>
-
-                    </div>
-
-                </div>
-
-                <div class="row">
-
-                    <div class="btn-wrap align-center">
-                        <a href="#" class="btn btn-outline-accent btn-accent-arrow" tabindex="0">Read All Articles<i
-                                class="icon icon-ns-arrow-right"></i></a>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
+
+
+
+<!-- Modal for Emprunt Form -->
+<div id="empruntFormModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Emprunt Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="empruntForm" action="${pageContext.request.contextPath}/emprunt" method="post">
+                    <input type="hidden" id="bookId" name="livreId">
+                    <div class="mb-3">
+                        <label for="bookTitle" class="form-label">Book Title</label>
+                        <input type="text" class="form-control" id="bookTitle" name="title" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bookAuthor" class="form-label">Book Author</label>
+                        <input type="text" class="form-control" id="bookAuthor" name="author" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="clientId" class="form-label">Client ID</label>
+                        <input type="text" class="form-control" id="clientId" name="clientId" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateEmprunt" class="form-label">Date Emprunt</label>
+                        <input type="date" class="form-control" id="dateEmprunt" name="dateEmprunt" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateRetour" class="form-label">Date Retour</label>
+                        <input type="date" class="form-control" id="dateRetour" name="dateRetour" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-control" id="status" name="status" required>
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Returned">Returned</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <footer id="footer">
     <div class="container">
@@ -1059,6 +541,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Open Emprunt Form with pre-filled book data
+    function openEmpruntForm(bookId, bookTitle, bookAuthor) {
+        document.getElementById('bookId').value = bookId;
+        document.getElementById('bookTitle').value = bookTitle;
+        document.getElementById('bookAuthor').value = bookAuthor;
+        let modal = new bootstrap.Modal(document.getElementById('empruntFormModal'));
+        modal.show();
+    }
+</script>
 <script src="${pageContext.request.contextPath}/static/assets/js/cart.js"></script>
 <script src="${pageContext.request.contextPath}/static/assets/js/jquery-1.11.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
